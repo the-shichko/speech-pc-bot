@@ -21,8 +21,8 @@ namespace speech_pc_bot.Api
         }
 
         private string Url { get; }
-
         private string ApiToken { get; }
+
         public async Task<ResponseResult<TP>> Post(string jsonBody)
         {
             using var httpClient = new HttpClient();
@@ -56,7 +56,7 @@ namespace speech_pc_bot.Api
     public class YandexSpeechApiRequest<TP> : ApiRequest<TP>
     {
         private const string YandexApi = "https://stt.api.cloud.yandex.net";
-        private static readonly string YandexSpeechApi = $"{YandexApi}/speech/v1/stt:recognize";
+        private const string YandexSpeechApi = YandexApi + "/speech/v1/stt:recognize";
 
         private const string ApiToken = "your-yandex-token";
 

@@ -13,17 +13,16 @@ namespace speech_pc_bot.Services
     public class TelegramService
     {
         private const string Token = "your-telegram-token";
-        private readonly ITelegramBotClient _botClient;
 
         private static IBotExecute<Message> _voiceExecuteService;
         private static IBotExecute<CallbackQuery> _callbackExecuteService;
         public TelegramService()
         {
-            _botClient = new TelegramBotClient(Token);
-            _botClient.StartReceiving(HandleUpdateAsync, HandleErrorAsync, _receiverOptions);
+            var botClient = new TelegramBotClient(Token);
+            botClient.StartReceiving(HandleUpdateAsync, HandleErrorAsync, _receiverOptions);
 
-            _voiceExecuteService = new VoiceService(_botClient);
-            _callbackExecuteService = new CallbackService(_botClient);
+            _voiceExecuteService = new VoiceService(botClient);
+            _callbackExecuteService = new CallbackService(botClient);
         }
 
         private static async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update,
@@ -32,6 +31,7 @@ namespace speech_pc_bot.Services
             switch (update.Type)
             {
                 case UpdateType.Message when update.Message is { Text: { } }: //&& update.Message!.Text.StartsWith("/"):
+                    // todo menu
                     await botClient.SendTextMessageAsync(update.Message.Chat.Id, "fsdf", replyMarkup: new InlineKeyboardMarkup(
                         new InlineKeyboardButton("lock")
                         {

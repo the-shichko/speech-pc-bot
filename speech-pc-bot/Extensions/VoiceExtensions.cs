@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using File = Telegram.Bot.Types.File;
 
 namespace speech_pc_bot.Extensions
 {
