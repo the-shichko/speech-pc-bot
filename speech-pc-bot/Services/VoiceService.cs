@@ -4,6 +4,7 @@ using speech_pc_bot.Extensions;
 using speech_pc_bot.Speech;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace speech_pc_bot.Services
 {
@@ -26,7 +27,8 @@ namespace speech_pc_bot.Services
             if (command != null)
                 await command.Command.Invoke(message.Chat.Id);
             else
-                await _botClient.SendTextMessageAsync(message.Chat.Id, "Команда не распознана ❌");
+                await _botClient.SendTextMessageAsync(message.Chat.Id, "Команда не распознана ❌\n" +
+                                                                       $"_{text}_", ParseMode.MarkdownV2);
         };
     }
 }

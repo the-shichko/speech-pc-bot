@@ -4,7 +4,7 @@ using speech_pc_bot.Helpers.Models;
 
 namespace speech_pc_bot.Helpers
 {
-    public class AlgorithmCompare
+    public static class AlgorithmCompare
     {
         public static bool Compare(string originalText, IEnumerable<KeyWord> keyWords)
         {
@@ -20,7 +20,7 @@ namespace speech_pc_bot.Helpers
 
             var percent = keyWordsList
                 .Where(keyWord =>
-                    text.Contains(keyWord.Text.ToLower()) || keyWord.Synonyms.Any(text.Contains))
+                    text.Contains(keyWord.Text.ToLower()) || (keyWord.Synonyms?.Any(text.Contains) ?? true))
                 .Sum(keyWord => keyWord.Value);
             return percent > 0.7;
         }
